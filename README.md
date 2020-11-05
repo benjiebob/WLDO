@@ -40,7 +40,7 @@ The results should read:
   <tr>
     <th>Dataset</th>
     <th colspan="5">PCK</th>
-    <th>Sil IOU</th>
+    <th>IOU</th>
   </tr>
   <tr>
     <th></th>
