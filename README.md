@@ -7,6 +7,8 @@ Evaluation and demo code for our ECCV 2020 paper: *Who Left the Dogs Out? 3D Ani
 
 ![](docs/banner.jpg)
 
+Please note, this repository is in beta while I make bug fixes etc. Please let me know if you have problems or if anything is unclear -- it would also help me prioritise requests if you could let me know if you need your issue dealt with as part of your CVPR submission.
+
 ## Install
 
 Clone the repository **with submodules**:
@@ -87,6 +89,13 @@ To see an example of this working, run demo.py and it will use the images in `ex
 cd wldo_regressor
 python demo.py
 ```
+
+## Related Work
+This repository owes a great deal to the following works and authors:
+- [SMALify](https://github.com/benjiebob/SMALify/); Biggs et al. provided an energy minimization framework for fitting to animal video/images. A version of this was used as a baseline in this paper.
+- [SMAL](http://smal.is.tue.mpg.de/); Zuffi et al. designed the SMAL deformable quadruped template model and have been wonderful for providing advice throughout my animal reconstruction PhD journey.
+- [SMALST](https://github.com/silviazuffi/smalst); Zuffi et al. provided a PyTorch implementations of the SMAL skinning functions which have been used here.
+- [SMPLify](http://smplify.is.tue.mpg.de/); Bogo et al. provided the basis for our original ChumPY implementation and inspired the name of this repo.
 
 ## Acknowledgements
 
