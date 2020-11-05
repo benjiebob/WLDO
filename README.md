@@ -37,22 +37,20 @@ The results should read:
 
 <table>
 <th>STANFORD_EXTRA</th>
-<tr><td>PCK 2D</td><td>0.78253</td></tr>
-<tr><td>legs PCK 2D</td><td>0.76081 </td></tr>
-<tr><td>tail PCK 2D</td><td>0.80975</td></tr>
-<tr><td>ears PCK 2D</td><td>0.76218 </td></tr>
-<tr><td>face PCK 2D</td><td>0.92631</td></tr>
+<tr><td>PCK 2D</td><td>0.82828</td></tr>
+<tr><td>legs PCK 2D</td><td>0.79131</td></tr>
+<tr><td>tail PCK 2D</td><td>0.74558</td></tr>
+<tr><td>ears PCK 2D</td><td>0.84460</td></tr>
+<tr><td>face PCK 2D</td><td>0.95583</td></tr>
 <tr><td>SIL IOU 2D</td><td>0.74818</td></tr>
 <tr></tr>
 <th>ANIMAL_POSE</th>
-<tr><td>PCK 2D</td><td>0.72819</td></tr>
-<tr><td>legs PCK 2D</td><td>0.64007 </td></tr>
-<tr><td>tail PCK 2D</td><td>0.85638</td></tr>
-<tr><td>ears PCK 2D</td><td>0.82713 </td></tr>
-<tr><td>face PCK 2D</td><td>0.93085</td></tr>
+<tr><td>PCK 2D</td><td>0.67580</td></tr>
+<tr><td>legs PCK 2D</td><td>0.61018</td></tr>
+<tr><td>tail PCK 2D</td><td>0.62745</td></tr>
+<tr><td>ears PCK 2D</td><td>0.83333 </td></tr>
+<tr><td>face PCK 2D</td><td>0.91111</td></tr>
 <tr><td>SIL IOU 2D</td><td>0.66612</td></tr>
-
-
 </table>
 
 ## Demo
