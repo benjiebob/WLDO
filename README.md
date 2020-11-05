@@ -48,7 +48,7 @@ The results should read:
   </tr>
   <tr>
     <th></th>
-    <th>Average</th>
+    <th>Avg</th>
     <th>Legs</th>
     <th>Tail</th>
     <th>Ears</th>
