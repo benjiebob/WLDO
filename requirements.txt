@@ -1,0 +1,17 @@
+chumpy==0.70
+Cython==0.29.21
+matplotlib==3.3.1
+meshzoo==0.6.1
+neural_renderer_pytorch
+numpy==1.19.1
+opencv-python==4.4.0.42
+pycocotools @ git+https://github.com/philferriere/cocoapi.git@2929bd2ef6b451054755dfd7ceb09278f935f7ad#subdirectory=PythonAPI
+PyYAML==5.3.1
+scipy==1.4.1
+torch==1.7.0
+torchaudio==0.7.0
+torchfile==0.1.0
+torchgeometry==0.1.2
+torchvision==0.8.1
+tqdm==4.48.2
+trimesh==3.8.4
