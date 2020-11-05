@@ -128,8 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-StanfordExtra/images
-animal_pose/images
+images/
 core*
 pretrained/
 results/
