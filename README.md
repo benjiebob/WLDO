@@ -33,6 +33,10 @@ python eval.py --dataset stanford
 
 You can also run on the `animal_pose` dataset
 
+```
+python eval.py --dataset animal_pose
+```
+
 The results should read:
 
 <table>
@@ -55,21 +59,21 @@ The results should read:
   <tbody>
   <tr>
     <td>StanfordExtra</td>
-    <td>0.82828</td>
-    <td>0.79131</td>
-    <td>0.74558</td>
-    <td>0.84460</td>
-    <td>0.95583</td>
-    <td>0.74818</td>
+    <td>82.8</td>
+    <td>79.1</td>
+    <td>74.6</td>
+    <td>84.5</td>
+    <td>95.6</td>
+    <td>74.8</td>
   </tr>
   <tr>
     <td>Animal Pose</td>
-    <td>0.67580</td>
-    <td>0.61018</td>
-    <td>0.62745</td>
-    <td>0.83333</td>
-    <td>0.91111</td>
-    <td>0.66612</td>
+    <td>67.6</td>
+    <td>61.0</td>
+    <td>62.7</td>
+    <td>83.3</td>
+    <td>91.1</td>
+    <td>66.6</td>
   </tr>
   </tbody>
 </table>
