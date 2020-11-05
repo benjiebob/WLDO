@@ -36,21 +36,42 @@ You can also run on the `animal_pose` dataset
 The results should read:
 
 <table>
-<th>STANFORD_EXTRA</th>
-<tr><td>PCK 2D</td><td>0.82828</td></tr>
-<tr><td>legs PCK 2D</td><td>0.79131</td></tr>
-<tr><td>tail PCK 2D</td><td>0.74558</td></tr>
-<tr><td>ears PCK 2D</td><td>0.84460</td></tr>
-<tr><td>face PCK 2D</td><td>0.95583</td></tr>
-<tr><td>SIL IOU 2D</td><td>0.74818</td></tr>
-<tr></tr>
-<th>ANIMAL_POSE</th>
-<tr><td>PCK 2D</td><td>0.67580</td></tr>
-<tr><td>legs PCK 2D</td><td>0.61018</td></tr>
-<tr><td>tail PCK 2D</td><td>0.62745</td></tr>
-<tr><td>ears PCK 2D</td><td>0.83333 </td></tr>
-<tr><td>face PCK 2D</td><td>0.91111</td></tr>
-<tr><td>SIL IOU 2D</td><td>0.66612</td></tr>
+  <thead>
+  <tr>
+    <th>Dataset</th>
+    <th colspan="5">PCK</th>
+    <th>Sil IOU</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>Average</th>
+    <th>Legs</th>
+    <th>Tail</th>
+    <th>Ears</th>
+    <th>Face</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>StanfordExtra</td>
+    <td>0.82828</td>
+    <td>0.79131</td>
+    <td>0.74558</td>
+    <td>0.84460</td>
+    <td>0.95583</td>
+    <td>0.74818</td>
+  </tr>
+  <tr>
+    <td>Animal Pose</td>
+    <td>0.67580</td>
+    <td>0.61018</td>
+    <td>0.62745</td>
+    <td>0.83333</td>
+    <td>0.91111</td>
+    <td>0.66612</td>
+  </tr>
+  </tbody>
 </table>
 
 ## Demo
