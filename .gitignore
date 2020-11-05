@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 StanfordExtra/images
+animal_pose/images
 core*
 pretrained/
 results/
