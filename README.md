@@ -24,6 +24,10 @@ To use the StanfordExtra dataset, you will need to download the .json file [via 
 You may also wish to evaluate the [Animal Pose Dataset](https://sites.google.com/view/animal-pose/). If so, download 
 all of the dog images into data/animal_pose/images. For example, an image path should look like: `data/animal_pose/images/2007_000063.jpg`.<sup>1</sup>
 
+### Pretrained model
+
+Please download our [pretrained model](https://drive.google.com/file/d/1n-aZk5x9cvrwB8QR6SeeZnI-rHrro_YP/view?usp=sharing) and place underneath `data/pretrained/3501_00034_betas_v2.pth`.
+
 # Quickstart
 
 ## Eval
