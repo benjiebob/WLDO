@@ -16,8 +16,8 @@ DATASET_NPZ_PATH = join(BASE_FOLDER, 'splits')
 # Path to test/train npy files
 DATASET_FILES = [
   {
-    'stanford': join(DATASET_NPZ_PATH, 'val_stanford.npy'),
-    'animal_pose' : join(DATASET_NPZ_PATH, 'val_animal_pose_2.npy'),
+    'stanford': join(DATASET_NPZ_PATH, 'test_stanford.npy'),
+    'animal_pose' : join(DATASET_NPZ_PATH, 'test_animal_pose.npy'),
   },
 ]
 

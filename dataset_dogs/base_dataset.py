@@ -55,7 +55,7 @@ class BaseDataset(Dataset):
         self.img_dir = os.path.join(BASE_FOLDER, 'images')
         self.jsonfile   = os.path.join(BASE_FOLDER, config.JSON_NAME[dataset]) # accessing new version of keypoints.json
 
-        # create train/val split
+        # create train/test split
         with open(self.jsonfile) as anno_file:
             self.anno = json.load(anno_file)
 
