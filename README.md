@@ -25,6 +25,7 @@ You may also wish to evaluate the [Animal Pose Dataset](https://sites.google.com
 all of the dog images into data/animal_pose/images. For example, an image path should look like: `data/animal_pose/images/2007_000063.jpg`.<sup>1</sup>
 
 ## Splits
+
 Our train/test splits are contained in the `data/splits` repository. Since ECCV 2020 we have sourced annotations for additional images, contained in the StanfordExtra repository which you can use for training/test. However, the npy files in `data/splits` are the same as we used in the paper.
 
 ### Pretrained model
@@ -50,7 +51,7 @@ python eval.py --dataset animal_pose
 
 ## Results
 
-The results of this model are slightly improved from the paper, due to some minor fixes to the annotations in the StanfordExtra dataset (generally resourcing annotations for train/test images we noticed were of very poor quality). This process has generally improved performance, although our result for Animal Pose PCK has dropped slightly. However, note that we do not use Animal Pose for training and it contains only ~94 usable test images (e.g. has segmentation, 1 dog per image etc.) compared to the ~1.7k we used in the original StanfordExtra test split.
+The results of this model are slightly improved from the paper, due to some minor fixes to the annotations in the StanfordExtra dataset (generally resourcing annotations for train/test images we noticed were of very poor quality).
 
 <table>
   <thead>
