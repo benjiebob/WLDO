@@ -16,6 +16,33 @@
             ]
         },
         {
+            "name": "Python: Evaluate STANFORD_EXTRA [Loaded]",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wldo_regressor/eval.py",
+            "cwd": "${workspaceFolder}/wldo_regressor",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset", "stanford",
+                "--param_dir", 
+                "/home/bjb10042/projects/code/eccv2020_prod/data/results/3501_00034_stanford"
+            ]
+        },
+        {
+            "name": "Python: Evaluate STANFORD_EXTRA [SMAL]",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wldo_regressor/eval.py",
+            "cwd": "${workspaceFolder}/wldo_regressor",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset", "stanford",
+                "--shape_family_id", "1",
+                "--param_dir", 
+                "/home/bjb10042/projects/code/eccv2020_prod/data/results/smal_exps/9101_00000_DAT.predicted_segmentations=True_DAT.predicted_joints=True_MOD.scale_iterations=1.0"
+            ]
+        },
+        {
             "name": "Python: Evaluate ANIMAL_POSE",
             "type": "python",
             "request": "launch",
@@ -25,6 +52,44 @@
             "args": [
                 "--dataset", "animal_pose",
             ]
+        },
+        {
+            "name": "Python: Evaluate ANIMAL_POSE [SMAL]",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wldo_regressor/eval.py",
+            "cwd": "${workspaceFolder}/wldo_regressor",
+            "console": "integratedTerminal",
+            "args": [
+                "--dataset", "animal_pose",
+                "--shape_family_id", "1",
+                "--param_dir", 
+                "/home/bjb10042/projects/code/eccv2020_prod/data/results/1306_00000_MOD.scale_iterations=1.0/"
+            ]
+        },
+        {
+            "name": "Python: Clean_Model",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/data/clean_model.py",
+            "cwd": "${workspaceFolder}/data",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python: Compare_Splits",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/data/compare_splits.py",
+            "cwd": "${workspaceFolder}/",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python: Compare_Splits_AniPose",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/data/compare_animal_segs.py",
+            "cwd": "${workspaceFolder}/",
+            "console": "integratedTerminal",
         },
     ]
 }

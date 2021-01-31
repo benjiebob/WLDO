@@ -42,6 +42,7 @@ class BaseDataset(Dataset):
 
     def __init__(self, 
         dataset, 
+        param_dir=None,
         use_augmentation=True, 
         is_train=True, 
         img_res=224):
@@ -49,11 +50,14 @@ class BaseDataset(Dataset):
         super(BaseDataset, self).__init__()
         self.dataset = dataset
         self.is_train = is_train
+        self.param_dir = param_dir
         
         BASE_FOLDER = config.DATASET_FOLDERS[dataset]
 
         self.img_dir = os.path.join(BASE_FOLDER, 'images')
         self.jsonfile   = os.path.join(BASE_FOLDER, config.JSON_NAME[dataset]) # accessing new version of keypoints.json
+
+        # self.jsonfile = "/home/bjb10042/projects/data/dogs_v2/stanford/keypoints_v101.json"
 
         # create train/test split
         with open(self.jsonfile) as anno_file:
@@ -112,7 +116,9 @@ class BaseDataset(Dataset):
     def rgb_processing(self, rgb_img, center, scale, rot, flip, pn,border_grey_intensity=0.0):
         """Process rgb image and do augmentation."""
         rgb_img = crop(rgb_img, center, scale, 
-                      [self.img_res, self.img_res], rot=rot,border_grey_intensity=border_grey_intensity)
+                      [self.img_res, self.img_res], rot=rot, 
+                      border_grey_intensity=border_grey_intensity)
+
         # flip the image 
         if flip:
             rgb_img = flip_img(rgb_img)
@@ -208,22 +214,27 @@ class BaseDataset(Dataset):
         item['has_pose_3d'] = False
         item['has_smpl'] = False
         item['keypoints_3d'] = np.zeros((24, 4))
-        item['gt_pose'] = np.zeros((105))
-        item['gt_shape'] = np.zeros((41))
-        item['gt_cam'] = np.zeros((3))
 
-        if 'joints_3d' in a:
-            item['keypoints_3d'] = np.array(a['joints_3d'])
-            item['has_pose_3d'] = True
-        if 'pose' in a:
-            item['gt_pose'] = np.array(a['pose'])
-            item['gt_shape'] = np.array(a['shape'])
-            item['gt_cam'] = np.array(a['camera'])
-            item['gt_trans'] = np.array(a['trans'])
-            item['has_smpl'] = True
+        item['pred_pose'] = np.zeros((105))
+        item['pred_shape'] = np.zeros((26))
+        item['pred_camera'] = np.zeros((3))
+        item['pred_trans'] = np.zeros((3))
+
+        if self.param_dir is not None:
+            inp_path = imgname_raw.replace("/", "_").replace(".jpg", ".npz")
+            if self.dataset == 'animal_pose':
+                inp_path = "images_{0}".format(inp_path)
+
+            with np.load(os.path.join(self.param_dir, inp_path)) as f:
+                item['pred_pose'] = f.f.pose
+                item['pred_shape'] = f.f.betas
+                item['pred_camera'] = f.f.camera
+                item['pred_trans'] = f.f.trans
 
         item['imgname'] = imgname
-        item['keypoints'] = kp_S24_norm[config.EVAL_KEYPOINTS]
+        # item['keypoints'] = kp_S24_norm[config.EVAL_KEYPOINTS]
+        item['keypoints'] = kp_S24_norm
+        # item['keypoints'] = kp_S24_norm
         item['scale'] = float(sc * scale)
         item['center'] = center.astype(np.float32)
         item['index'] = img_idx
@@ -243,3 +254,4 @@ class BaseDataset(Dataset):
 
     def __len__(self):
         return len(self.data_idx)
+        # return 32

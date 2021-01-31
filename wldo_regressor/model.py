@@ -18,9 +18,11 @@ from global_utils.helpers.visualize import Visualizer
 from metrics import Metrics
 
 class Model(nn.Module):
-    def __init__( self, device, **kwargs):
+    def __init__( self, device, shape_family_id, load_from_disk, **kwargs):
 
         super(Model, self).__init__()
+
+        self.load_from_disk = load_from_disk
 
         self.model_renderer = NeuralRenderer(
             config.IMG_RES, proj_type=config.PROJECTION, 
@@ -34,11 +36,12 @@ class Model(nn.Module):
             norm_f0=config.NORM_F0,
             nz_feat=config.NZ_FEAT)
 
-        self.smal = SMAL(device, shape_family_id=config.SHAPE_FAMILY_ID)
+        self.smal = SMAL(device, shape_family_id=shape_family_id)
+
         print ("INITIALIZED")
         
 
-    def forward(self, batch_input, eval=True):
+    def forward(self, batch_input):
         """Run forward pass; called by both functions <optimize_parameters> and <test>.
         If eval is False, do not calculate accuracy metrics (PCK, IOU)."""
 
@@ -53,16 +56,28 @@ class Model(nn.Module):
         img_border_mask=batch_input['img_border_mask']
 
         batch_size = img.shape[0]
-        
-        pred_codes, _ = self.netG_DETAIL(img) # This is the generator
-        scale_pred, trans_pred, pose_pred, betas_pred, betas_logscale = \
-            pred_codes
 
-        all_betas = torch.cat([betas_pred, betas_logscale], dim = 1)
-        pred_camera = torch.cat([
-                scale_pred[:, [0]], 
-                torch.ones(batch_size, 2).cuda() * config.IMG_RES / 2
-        ], dim = 1)
+        if not self.load_from_disk:
+            pred_codes, _ = self.netG_DETAIL(img) # This is the generator
+            scale_pred, trans_pred, pose_pred, betas_pred, betas_logscale = \
+                pred_codes
+
+            all_betas = torch.cat([betas_pred, betas_logscale], dim = 1)
+            pred_camera = torch.cat([
+                    scale_pred[:, [0]], 
+                    torch.ones(batch_size, 2).cuda() * config.IMG_RES / 2
+            ], dim = 1)
+        else:
+            betas_pred = batch_input['pred_shape'][:, :20]
+            if batch_input['pred_shape'].shape[1] == 20:
+                betas_logscale = torch.zeros_like(betas_pred[:, :6])
+            else:
+                betas_logscale = batch_input['pred_shape'][:, 20:]
+
+            all_betas = batch_input['pred_shape']
+            pose_pred = batch_input['pred_pose'].reshape(-1, 105)
+            trans_pred = batch_input['pred_trans']
+            pred_camera = batch_input['pred_camera']
 
         verts, joints, _, _ = self.smal(
             betas_pred, pose_pred, 
@@ -72,7 +87,7 @@ class Model(nn.Module):
         faces = self.smal.faces.unsqueeze(0).expand(
             verts.shape[0], 7774, 3)
        
-        synth_rgb, _, synth_silhouettes = self.model_renderer(
+        synth_rgb, synth_silhouettes = self.model_renderer(
             verts, faces, pred_camera)
 
         synth_rgb = torch.clamp(synth_rgb, 0.0, 1.0)
@@ -92,21 +107,22 @@ class Model(nn.Module):
         preds['joints_3d'] = labelled_joints_3d
         preds['faces'] = faces
 
-        if eval:
-            preds['acc_PCK'] = Metrics.PCK(
-                synth_landmarks, keypoints, 
-                seg, has_seg
-            )
+        preds['acc_PCK'] = Metrics.PCK(
+            synth_landmarks, keypoints, 
+            seg, has_seg
+        )
 
-            preds['acc_IOU'] = Metrics.IOU(
-                synth_silhouettes, seg, 
-                img_border_mask, mask = has_seg
-            )
+        preds['acc_IOU'] = Metrics.IOU(
+            synth_silhouettes, seg, 
+            img_border_mask, mask = has_seg
+        )
 
-            for group, group_kps in config.KEYPOINT_GROUPS.items():
-                preds[f'{group}_PCK'] = Metrics.PCK(
-                    synth_landmarks, keypoints, seg, has_seg, idxs=group_kps
-                )
+        for group, group_kps in config.KEYPOINT_GROUPS.items():
+            preds[f'{group}_PCK'] = Metrics.PCK(
+                synth_landmarks, keypoints, seg, has_seg, 
+                thresh_range=[0.15],
+                idxs=group_kps
+            )
         
         preds['synth_xyz'] = synth_rgb
         preds['synth_silhouettes'] = synth_silhouettes

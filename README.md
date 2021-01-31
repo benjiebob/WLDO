@@ -26,11 +26,11 @@ all of the dog images into data/animal_pose/images. For example, an image path s
 
 ## Splits
 
-Our train/test splits are contained in the `data/splits` repository. Since ECCV 2020 we have sourced annotations for additional images, contained in the StanfordExtra repository which you can use for training/test. However, the npy files in `data/splits` are the same as we used in the paper.
+The train/validation/test splits used for our ECCV 2020 submission are contained in the `data/splits` repository.
 
 ### Pretrained model
 
-Please download our [pretrained model](https://drive.google.com/file/d/1n-aZk5x9cvrwB8QR6SeeZnI-rHrro_YP/view?usp=sharing) and place underneath `data/pretrained/3501_00034_betas_v2.pth`.
+Please download our [pretrained model](https://drive.google.com/file/d/1khc-wttwBZ-I2ub1OgkhdB9aFDo0OMn4/view?usp=sharing) and place underneath `data/pretrained/3501_00034_betas_v4.pth`.
 
 # Quickstart
 
@@ -73,11 +73,11 @@ The results of this model are slightly improved from the paper, due to some mino
   <tbody>
   <tr>
     <td>StanfordExtra</td>
-    <td>82.8</td>
-    <td>79.1</td>
-    <td>74.6</td>
-    <td>84.5</td>
-    <td>95.6</td>
+    <td>67.0</td>
+    <td>61.5</td>
+    <td>59.4</td>
+    <td>64.2</td>
+    <td>92.4</td>
     <td>74.8</td>
   </tr>
   <tr>

@@ -16,18 +16,18 @@ DATASET_NPZ_PATH = join(BASE_FOLDER, 'splits')
 # Path to test/train npy files
 DATASET_FILES = [
   {
-    'stanford': join(DATASET_NPZ_PATH, 'test_stanford.npy'),
-    'animal_pose' : join(DATASET_NPZ_PATH, 'test_animal_pose.npy'),
+    'stanford': join(BASE_FOLDER, 'StanfordExtra_v12', 'test_stanford_StanfordExtra_v12.npy'),
+    'animal_pose' : join(BASE_FOLDER, 'splits', 'test_animal_pose.npy'),
   },
 ]
 
 DATASET_FOLDERS = {
-  'stanford' : join(BASE_FOLDER, 'StanfordExtra'),
+  'stanford' : join(BASE_FOLDER, 'StanfordExtra_v12'),
   'animal_pose' : join(BASE_FOLDER, 'animal_pose'),
 }
 
 JSON_NAME = {
-    'stanford': 'StanfordExtra_v1.json', # the latest version of the StanfordExtra dataset
+    'stanford': 'StanfordExtra_v12.json', # the latest version of the StanfordExtra dataset
     'animal_pose': 'animal_pose_data.json'
 }
 
@@ -75,9 +75,10 @@ MODEL_JOINTS = [
   10, 9, 8, # right front (6, 7, 8)
   20, 19, 18, # right rear (9, 10, 11)
   25, 31, # tail start -> end (12, 13)
-  34, 33, # left ear, right ear (14, 15)
+  34, 33, # right ear, left ear (14, 15)
   35, 36, # nose, chin (16, 17)
-  37, 38] # left tip, right tip (18, 19)
+  37, 38, # right tip, left tip (18, 19)
+  39, 40] # left eye, right eye (20, 21)
 
 EVAL_KEYPOINTS = [
   0, 1, 2, # left front
@@ -87,7 +88,8 @@ EVAL_KEYPOINTS = [
   12, 13, # tail start -> end
   14, 15, # left ear, right ear
   16, 17, # nose, chin
-  18, 19 # left tip, right tip
+  18, 19, # left tip, right tip
+  20, 21 # left eye, right eye
 ]
 
 KEYPOINT_GROUPS = {

@@ -23,12 +23,16 @@ import torch.nn as nn
 # Define command-line arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--output_dir', default='../data/results', help='Where to export the SMAL fits')
-parser.add_argument('--checkpoint', default='../data/pretrained/3501_00034_betas_v2.pth', help='Path to network checkpoint')
+# parser.add_argument('--checkpoint', default='../data/pretrained/model_epoch_00000999.pth', help='Path to network checkpoint')
+parser.add_argument('--checkpoint', default='../data/pretrained/3501_00034_betas_v4.pth', help='Path to network checkpoint')
 parser.add_argument('--dataset', default='stanford', choices=['stanford', 'animal_pose'], help='Choose evaluation dataset')
 parser.add_argument('--log_freq', default=50, type=int, help='Frequency of printing intermediate results')
 parser.add_argument('--batch_size', default=32, type=int, help='Batch size for testing')
 parser.add_argument('--num_workers', default=0, type=int, help='Number of processes for data loading')
+parser.add_argument('--shape_family_id', default=-1, type=int, help='Shape family to use')
 parser.add_argument('--gpu_ids', default="0", type=str, help='GPUs to use. Format as string, e.g. "0,1,2')
+parser.add_argument('--param_dir', default="NONE", type=str, help='Exported parameter folder to load')
+
 
 def run_evaluation(model, dataset, device, result_dir,
                    batch_size=16,
@@ -112,23 +116,35 @@ def run_evaluation(model, dataset, device, result_dir,
                 )
 
     # Print final results during evaluation
+
+    pck_data = np.concatenate(
+    [
+        np.array(smpl_imgname), 
+        np.array(pck).astype(str)
+    ])
+
+    np.savetxt("../data/debug/pck.csv", pck_data, delimiter=",", fmt="%s")
+    
     report = f"""*** Final Results ***
 
+    SIL IOU 2D: {np.nanmean(acc_sil_2d):.5f}
     PCK 2D: {np.nanmean(pck):.5f}"""
+
+    report_str = f"{np.nanmean(acc_sil_2d):.5f},{np.nanmean(pck):.5f},"
 
     for part in pck_by_part:
         report += f'\n   {part} PCK 2D: {np.nanmean(pck_by_part[part]):.5f}'
-
-    report += f'\nSIL IOU 2D: {np.nanmean(acc_sil_2d):.5f}'
+        report_str += f"{np.nanmean(pck_by_part[part]):.5f},"
 
     print(report)
+    print(report_str)
 
     # save report to file
     with open(os.path.join(result_dir, '_report.txt'), 'w') as outfile:
         print(report, file=outfile)
 
-def load_model_from_disk(model_path, device):
-    model = Model(device)
+def load_model_from_disk(model_path, shape_family_id, load_from_disk, device):
+    model = Model(device, shape_family_id, load_from_disk)
     model = nn.DataParallel(model)
     model = model.to(device)
     model.eval()
@@ -171,15 +187,29 @@ if __name__ == '__main__':
     if not os.path.exists(args.checkpoint):
         print (f"Unable to find: {args.checkpoint}")
     
-    model = load_model_from_disk(args.checkpoint, device)
+    load_from_disk = os.path.exists(args.param_dir)
+
+    model = load_model_from_disk(
+        args.checkpoint, args.shape_family_id, 
+        load_from_disk, device)
+
     model.eval()
 
-    # Setup evaluation dataset
-    dataset = BaseDataset(
-        args.dataset, 
-        is_train=False, 
-        use_augmentation=False)
+    if load_from_disk:
+        dataset = BaseDataset(
+            args.dataset, 
+            param_dir=args.param_dir,
+            is_train=False, 
+            use_augmentation=False)
 
+    else:
+        # Setup evaluation dataset
+        dataset = BaseDataset(
+            args.dataset,
+            is_train=False, 
+            use_augmentation=False)
+    
+    
     # Run evaluation
     run_evaluation(
         model, dataset, device, args.output_dir,

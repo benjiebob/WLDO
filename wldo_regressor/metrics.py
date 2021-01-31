@@ -6,33 +6,51 @@ import numpy as np
 class Metrics():
 
     @staticmethod
+    def PCK_thresh(
+        pred_keypoints, gt_keypoints,
+        gtseg, has_seg,
+        thresh, idxs):
+
+        pred_keypoints, gt_keypoints, gtseg = pred_keypoints[has_seg], gt_keypoints[has_seg], gtseg[has_seg]
+
+        if idxs is None:
+            idxs = list(range(pred_keypoints.shape[1]))
+
+        idxs = np.array(idxs).astype(int)
+
+        pred_keypoints = pred_keypoints[:, idxs]
+        gt_keypoints = gt_keypoints[:, idxs]
+
+        keypoints_gt = ((gt_keypoints + 1.0) * 0.5) * config.IMG_RES
+        dist = torch.norm(pred_keypoints - keypoints_gt[:, :, [1, 0]], dim = -1)
+        seg_area = torch.sum(gtseg.reshape(gtseg.shape[0], -1), dim = -1).unsqueeze(-1)
+
+        hits = (dist / torch.sqrt(seg_area)) < thresh
+        total_visible = torch.sum(gt_keypoints[:, :, -1], dim = -1)
+        pck = torch.sum(hits.float() * gt_keypoints[:, :, -1], dim = -1) / total_visible
+
+        return pck
+
+    @staticmethod
     def PCK(
-        synth_landmarks, keypoints, 
+        pred_keypoints, keypoints, 
         gtseg, has_seg, 
-        thresh=0.15, idxs:list=None):
+        thresh_range=[0.15],
+        idxs:list=None):
 
         """Calc PCK with same method as in eval.
         idxs = optional list of subset of keypoints to index from
         """
 
-        synth_landmarks, keypoints, gtseg = synth_landmarks[has_seg], keypoints[has_seg], gtseg[has_seg]
-
-        if idxs is None:
-            idxs = list(range(keypoints.shape[1]))
-
-        idxs = np.array(idxs).astype(int)
-
-        synth_landmarks = synth_landmarks[:, idxs]
-        keypoints = keypoints[:, idxs]
-
-        keypoints_gt = ((keypoints + 1.0) * 0.5) * config.IMG_RES
-        dist = torch.norm(synth_landmarks - keypoints_gt[:, :, [1, 0]], dim = -1)
-        seg_area = torch.sum(gtseg.reshape(gtseg.shape[0], -1), dim = -1).unsqueeze(-1)
+        cumulative_pck = []
+        for thresh in thresh_range:
+            pck = Metrics.PCK_thresh(
+                pred_keypoints, keypoints, 
+                gtseg, has_seg, thresh, idxs)
+            cumulative_pck.append(pck)
         
-        hits = (dist / torch.sqrt(seg_area)) < thresh
-        total_visible = torch.sum(keypoints[:, :, -1], dim = -1)
-        pck = torch.sum(hits.float() * keypoints[:, :, -1], dim = -1) / total_visible
-        return pck
+        pck_mean = torch.stack(cumulative_pck, dim = 0).mean(dim=0)
+        return pck_mean
 
     @staticmethod
     def IOU(synth_silhouettes, gt_seg, img_border_mask, mask):

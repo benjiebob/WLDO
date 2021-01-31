@@ -211,11 +211,15 @@ class NeuralRenderer(torch.nn.Module):
     def forward(self, vertices, faces, cams, textures=None):
         verts = self.proj_fn(vertices, cams, offset_z=self.offset_z, norm_f=self.norm_f, norm_z=self.norm_z, norm_f0=self.norm_f0)        
         if textures is not None:
-            return self.renderer.render(verts, faces, textures)
+            img = self.renderer.render(verts, faces, textures)
+            sil = self.renderer.render_silhouettes(verts, faces)
+            return img, sil
             # return Render(self.renderer)(verts, faces, textures)
         else:
             textures = self.textures.unsqueeze(0).expand(verts.shape[0], -1, -1, -1, -1, -1)
-            return self.renderer.render(verts, faces, textures)
+            img = self.renderer.render(verts, faces, textures)
+            sil = self.renderer.render_silhouettes(verts, faces)
+            return img, sil
             # return Render(self.renderer)(verts, faces)
 
 

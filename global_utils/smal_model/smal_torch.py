@@ -21,7 +21,7 @@ def undo_chumpy(x):
     return x if isinstance(x, np.ndarray) else x.r
 
 class SMAL(nn.Module):
-    def __init__(self, device, shape_family_id=1, dtype=torch.float):
+    def __init__(self, device, shape_family_id=-1, dtype=torch.float):
         super(SMAL, self).__init__()
 
         # -- Load SMPL params --
@@ -62,10 +62,19 @@ class SMAL(nn.Module):
             u.encoding = 'latin1'
             data = u.load()
 
+        # Zero_Betas -> V_Template -> Aligned
+        # Zero_Betas -> V_Template -> V_Template + ShapeCluster * ShapeDirs -> Aligned
+
+        # Aligned(V_T + ShapeCluster * ShapeDirs) - ShapeCluster * ShapeDirs
+
         # Select mean shape for quadruped type
         shape_cluster_means = data['cluster_means'][shape_family_id]
-        v_template = v_template + np.matmul(shape_cluster_means[None,:], shapedir).reshape(
-            -1, self.size[0], self.size[1])[0]
+        
+        # NOTE: The model was trained using v_template for shape_params=[0]*41
+        if shape_family_id != -1:
+            v_template = v_template + np.matmul(
+                shape_cluster_means[None,:], shapedir).reshape(
+                -1, self.size[0], self.size[1])[0]
 
         self.shape_cluster_means = torch.from_numpy(shape_cluster_means).float().to(device)
 
