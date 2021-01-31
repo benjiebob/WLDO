@@ -117,13 +117,13 @@ def run_evaluation(model, dataset, device, result_dir,
 
     # Print final results during evaluation
 
-    pck_data = np.concatenate(
-    [
-        np.array(smpl_imgname), 
-        np.array(pck).astype(str)
-    ])
+    # pck_data = np.concatenate(
+    # [
+    #     np.array(smpl_imgname), 
+    #     np.array(pck).astype(str)
+    # ])
 
-    np.savetxt("../data/debug/pck.csv", pck_data, delimiter=",", fmt="%s")
+    # np.savetxt("../data/debug/pck.csv", pck_data, delimiter=",", fmt="%s")
     
     report = f"""*** Final Results ***
 

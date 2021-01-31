@@ -232,9 +232,7 @@ class BaseDataset(Dataset):
                 item['pred_trans'] = f.f.trans
 
         item['imgname'] = imgname
-        # item['keypoints'] = kp_S24_norm[config.EVAL_KEYPOINTS]
-        item['keypoints'] = kp_S24_norm
-        # item['keypoints'] = kp_S24_norm
+        item['keypoints'] = kp_S24_norm[config.EVAL_KEYPOINTS]
         item['scale'] = float(sc * scale)
         item['center'] = center.astype(np.float32)
         item['index'] = img_idx

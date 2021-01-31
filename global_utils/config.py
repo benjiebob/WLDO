@@ -77,8 +77,7 @@ MODEL_JOINTS = [
   25, 31, # tail start -> end (12, 13)
   34, 33, # right ear, left ear (14, 15)
   35, 36, # nose, chin (16, 17)
-  37, 38, # right tip, left tip (18, 19)
-  39, 40] # left eye, right eye (20, 21)
+  37, 38] # right tip, left tip (18, 19)
 
 EVAL_KEYPOINTS = [
   0, 1, 2, # left front
@@ -88,9 +87,7 @@ EVAL_KEYPOINTS = [
   12, 13, # tail start -> end
   14, 15, # left ear, right ear
   16, 17, # nose, chin
-  18, 19, # left tip, right tip
-  20, 21 # left eye, right eye
-]
+  18, 19] # left tip, right tip
 
 KEYPOINT_GROUPS = {
   'legs': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], # legs
