@@ -7,9 +7,9 @@ Evaluation and demo code for our ECCV 2020 paper: *Who Left the Dogs Out? 3D Ani
 
 ![](docs/banner.jpg)
 
-## DISCLAIMER
+## Disclaimer
 
-Please note, this repository is in beta while I make bug fixes etc. Please let me know if you have problems or if anything is unclear -- it would also help me prioritise requests if you could let me know if you need your issue dealt with as part of your CVPR submission.
+Please note, this repository is in beta while I make bug fixes etc.
 
 ## Install
 
@@ -73,21 +73,21 @@ The results of this model are slightly improved from the paper, due to some mino
   <tbody>
   <tr>
     <td>StanfordExtra</td>
-    <td>67.0</td>
-    <td>61.5</td>
-    <td>59.4</td>
-    <td>64.2</td>
-    <td>92.4</td>
-    <td>74.8</td>
+    <td>74.2</td>
+    <td>78.8</td>	
+    <td>76.4</td>	
+    <td>63.9</td>	
+    <td>78.1</td>	
+    <td>92.1</td>
   </tr>
   <tr>
     <td>Animal Pose</td>
-    <td>67.6</td>
-    <td>61.0</td>
-    <td>62.7</td>
-    <td>83.3</td>
-    <td>91.1</td>
-    <td>66.6</td>
+    <td>67.5</td>	
+    <td>67.6</td>	
+    <td>60.4</td>	
+    <td>62.7</td>	
+    <td>86.0</td>	
+    <td>86.7</td>
   </tr>
   </tbody>
 </table>
