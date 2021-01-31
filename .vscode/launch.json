@@ -39,7 +39,7 @@
                 "--dataset", "stanford",
                 "--shape_family_id", "1",
                 "--param_dir", 
-                "/home/bjb10042/projects/code/eccv2020_prod/data/results/smal_exps/9101_00000_DAT.predicted_segmentations=True_DAT.predicted_joints=True_MOD.scale_iterations=1.0"
+                "../data/optimizer_results/9101_00000_DAT.predicted_segmentations=True_DAT.predicted_joints=True_MOD.scale_iterations=1.0"
             ]
         },
         {
@@ -64,7 +64,7 @@
                 "--dataset", "animal_pose",
                 "--shape_family_id", "1",
                 "--param_dir", 
-                "/home/bjb10042/projects/code/eccv2020_prod/data/results/1306_00000_MOD.scale_iterations=1.0/"
+                "../data/optimizer_results/1306_00000_MOD.scale_iterations=1.0/"
             ]
         },
         {

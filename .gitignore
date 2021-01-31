@@ -128,11 +128,13 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+optimizer_results/
 StanfordExtra*/
 debug*/
 images/
 core*
 pretrained/
 results/
+utils/
 *.pth
 *.tar
