@@ -67,12 +67,12 @@ python eval.py --dataset animal_pose
   </tr>
   <tr>
     <th></th>
+    <th></th>
     <th>Avg</th>
     <th>Legs</th>
     <th>Tail</th>
     <th>Ears</th>
     <th>Face</th>
-    <th></th>
   </tr>
   </thead>
   <tbody>
