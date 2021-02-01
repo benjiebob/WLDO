@@ -97,7 +97,7 @@ python eval.py --dataset animal_pose
   </tbody>
 </table>
 
-Note that we have recently updated tables in the arxiv version of our WLDO paper to account for some fixed dataset annotations and an improved version of PCK. More details can be found in the paper.
+Note that we have recently updated the tables in the arxiv version of our paper to account for some fixed dataset annotations and to use an improved version of the PCK metric. More details can be found in the paper.
 
 ## Demo
 
