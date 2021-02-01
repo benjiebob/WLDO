@@ -62,8 +62,8 @@ python eval.py --dataset animal_pose
   <thead>
   <tr>
     <th>Dataset</th>
-    <th colspan="5">PCK</th>
     <th>IOU</th>
+    <th colspan="5">PCK</th>
   </tr>
   <tr>
     <th></th>
