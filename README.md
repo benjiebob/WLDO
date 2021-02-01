@@ -17,16 +17,23 @@ Clone the repository **with submodules**:
 
 `git clone --recurse-submodules https://github.com/benjiebob/WLDO`
 
+
+For segmentation decoding, install pycocotools
+`python -m pip install "git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI"`
+
+
 ### Datasets
 
-To use the StanfordExtra dataset, you will need to download the .json file [via the repository](https://github.com/benjiebob/StanfordExtra).
+To use the StanfordExtra dataset, you will need to download the .json file [via the repository](https://github.com/benjiebob/StanfordExtra). 
+
+**Please ensure you have StanfordExtra_v12 installed, which we released 1 Feb 2021.**
 
 You may also wish to evaluate the [Animal Pose Dataset](https://sites.google.com/view/animal-pose/). If so, download 
-all of the dog images into data/animal_pose/images. For example, an image path should look like: `data/animal_pose/images/2007_000063.jpg`.<sup>1</sup>
+all of the dog images into data/animal_pose/images. For example, an image path should look like: `data/animal_pose/images/2007_000063.jpg`. We have reformatted the annotation file and enclose it in this repository `data/animal_pose/animal_pose_data.json`.
 
 ## Splits
 
-The train/validation/test splits used for our ECCV 2020 submission are contained in the `data/splits` repository.
+The train/validation/test splits used for our ECCV 2020 submission are contained in the `data/StanfordExtra_v12` repository and under the `data/animal_pose` folder.
 
 ### Pretrained model
 
@@ -50,8 +57,6 @@ python eval.py --dataset animal_pose
 ```
 
 ## Results
-
-The results of this model are slightly improved from the paper, due to some minor fixes to the annotations in the StanfordExtra dataset (generally resourcing annotations for train/test images we noticed were of very poor quality).
 
 <table>
   <thead>
@@ -92,6 +97,8 @@ The results of this model are slightly improved from the paper, due to some mino
   </tbody>
 </table>
 
+Note that we have recently updated tables in the arxiv version of our WLDO paper to account for some fixed dataset annotations and an improved version of PCK. More details can be found in the paper.
+
 ## Demo
 
 To run the model on a series of images, place the images in a directory, and call the script demo.py.
@@ -105,8 +112,8 @@ python demo.py
 ## Related Work
 This repository owes a great deal to the following works and authors:
 - [SMALify](https://github.com/benjiebob/SMALify/); Biggs et al. provided an energy minimization framework for fitting to animal video/images. A version of this was used as a baseline in this paper.
-- [SMAL](http://smal.is.tue.mpg.de/); Zuffi et al. designed the SMAL deformable quadruped template model and have been wonderful for providing advice throughout my animal reconstruction PhD journey.
-- [SMALST](https://github.com/silviazuffi/smalst); Zuffi et al. provided a PyTorch implementations of the SMAL skinning functions which have been used here.
+- [SMAL](http://smal.is.tue.mpg.de/); Zuffi et al. designed the SMAL deformable quadruped template model and have provided me with wonderful advice/guidance throughout my PhD journey.
+- [SMALST](https://github.com/silviazuffi/smalst); Zuffi et al. provided PyTorch implementations of the SMAL skinning functions which have been used here.
 - [SMPLify](http://smplify.is.tue.mpg.de/); Bogo et al. provided the basis for our original ChumPY implementation and inspired the name of this repo.
 
 ## Acknowledgements
@@ -131,11 +138,3 @@ Please create a pull request or submit an issue if you would like to contribute.
 By downloading this code, you agree to the [Creative Commons Attribution 3.0 International license](https://creativecommons.org/licenses/by/3.0/). This license allows users to use, share and adapt the code, so long as credit is given to the authors (e.g. by citation).
 
 THIS SOFTWARE AND ANNOTATIONS ARE PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-### Notes
-
-<sup>1</sup> The eval script for animal_pose only runs on 94 of the 777 images in the dataset. This is because only these images
-are provided with ground truth segmentations.
-
-For segmentation decoding, install pycocotools
-`python -m pip install "git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI"`
