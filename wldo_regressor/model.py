@@ -41,9 +41,9 @@ class Model(nn.Module):
         print ("INITIALIZED")
         
 
-    def forward(self, batch_input):
+    def forward(self, batch_input, demo=False):
         """Run forward pass; called by both functions <optimize_parameters> and <test>.
-        If eval is False, do not calculate accuracy metrics (PCK, IOU)."""
+        If demo is False, do not calculate accuracy metrics (PCK, IOU)."""
 
         img = batch_input['img']
         keypoints = batch_input['keypoints']
@@ -107,23 +107,24 @@ class Model(nn.Module):
         preds['joints_3d'] = labelled_joints_3d
         preds['faces'] = faces
 
-        preds['acc_PCK'] = Metrics.PCK(
-            synth_landmarks, keypoints, 
-            seg, has_seg
-        )
-
-        preds['acc_IOU'] = Metrics.IOU(
-            synth_silhouettes, seg, 
-            img_border_mask, mask = has_seg
-        )
-
-        for group, group_kps in config.KEYPOINT_GROUPS.items():
-            preds[f'{group}_PCK'] = Metrics.PCK(
-                synth_landmarks, keypoints, seg, has_seg, 
-                thresh_range=[0.15],
-                idxs=group_kps
+        if not demo:
+            preds['acc_PCK'] = Metrics.PCK(
+                synth_landmarks, keypoints, 
+                seg, has_seg
             )
-        
+
+            preds['acc_IOU'] = Metrics.IOU(
+                synth_silhouettes, seg, 
+                img_border_mask, mask = has_seg
+            )
+
+            for group, group_kps in config.KEYPOINT_GROUPS.items():
+                preds[f'{group}_PCK'] = Metrics.PCK(
+                    synth_landmarks, keypoints, seg, has_seg, 
+                    thresh_range=[0.15],
+                    idxs=group_kps
+                )
+            
         preds['synth_xyz'] = synth_rgb
         preds['synth_silhouettes'] = synth_silhouettes
         preds['synth_landmarks'] = synth_landmarks

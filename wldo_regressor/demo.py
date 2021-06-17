@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 """
 File for using the model on a single directory
 """
@@ -18,20 +21,27 @@ from tqdm import tqdm
 nn = torch.nn
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--checkpoint', default='../data/pretrained/3501_00034_clean.pth', help='Path to network checkpoint')
+parser.add_argument('--checkpoint', default='../data/pretrained/3501_00034_betas_v4.pth', help='Path to network checkpoint')
 parser.add_argument('--src_dir', default="../example_imgs", type=str, help='The directory of input images')
 parser.add_argument('--result_dir', default='../demo_out', help='Where to export the output data')
-parser.add_argument('--batch_size', default=16, type=int)
+parser.add_argument('--shape_family_id', default=-1, type=int, help='Shape family to use')
+parser.add_argument('--batch_size', default=1, type=int)
+parser.add_argument('--gpu_ids', default="0", type=str, help='GPUs to use. Format as string, e.g. "0,1,2')
 
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-
-
-def run_demo(args):
+def run_demo(args, device):
     """Run evaluation on the datasets and metrics we report in the paper. """
 
     os.makedirs(args.result_dir, exist_ok=True)
 
-    model = load_model_from_disk(args.checkpoint, True, device)
+
+    if not os.path.exists(args.checkpoint):
+        print (f"Unable to find: {args.checkpoint}")
+    
+
+    model = load_model_from_disk(
+        args.checkpoint, args.shape_family_id, 
+        False, device)
+
     batch_size = args.batch_size
 
     # Load DataLoader
@@ -42,7 +52,7 @@ def run_demo(args):
     smal_pose = np.zeros((len(dataset), 105))
     smal_betas = np.zeros((len(dataset), 26))
     smal_camera = np.zeros((len(dataset), 3))
-    smal_joints3d = np.zeros((len(dataset), 22, 3))
+    smal_joints3d = np.zeros((len(dataset), 20, 3))
     smal_imgname = []
     smal_has_bbox = []
 
@@ -50,7 +60,7 @@ def run_demo(args):
     tqdm_iterator = tqdm(data_loader, desc='Eval', total=len(data_loader))
     for step, batch in enumerate(tqdm_iterator):
         with torch.no_grad():
-            preds = model(batch, eval=False)
+            preds = model(batch, demo=True)
 
             # make sure we dont overwrite something
             assert not any(k in preds for k in batch.keys())
@@ -103,16 +113,15 @@ def run_demo(args):
     print("--> Exported param file: {0}".format(param_file))
     print('*** FINISHED ***')
 
-
-def load_model_from_disk(model_path, device):
-    model = Model(device)
+def load_model_from_disk(model_path, shape_family_id, load_from_disk, device):
+    model = Model(device, shape_family_id, load_from_disk)
     model = nn.DataParallel(model)
     model = model.to(device)
     model.eval()
 
     if model_path is not None:
-        print("found previous model %s" % model_path)
-        print("   -> resuming")
+        print( "found previous model %s" % model_path )
+        print( "   -> resuming" )
         model_state_dict = torch.load(model_path)
 
         own_state = model.state_dict()
@@ -120,15 +129,23 @@ def load_model_from_disk(model_path, device):
             try:
                 own_state[name].copy_(param)
             except:
-                print("Unable to load: {0}".format(name))
+                print ("Unable to load: {0}".format(name))
     else:
-        print('model_path is none')
+        print ('model_path is none')
 
-        print("LOADED")
+        print ("LOADED")
 
     return model
 
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    run_demo(args)
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu_ids
+    print (os.environ['CUDA_VISIBLE_DEVICES'])
+
+    print("Let's use", torch.cuda.device_count(), "GPUs!")
+    assert torch.cuda.device_count() == 1, "Currently only 1 GPU is supported"
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    run_demo(args, device)
