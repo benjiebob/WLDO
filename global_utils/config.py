@@ -17,7 +17,7 @@ DATASET_NPZ_PATH = join(BASE_FOLDER, 'splits')
 DATASET_FILES = [
   {
     'stanford': join(BASE_FOLDER, 'StanfordExtra_v12', 'test_stanford_StanfordExtra_v12.npy'),
-    'animal_pose' : join(BASE_FOLDER, 'splits', 'test_animal_pose.npy'),
+    'animal_pose' : join(BASE_FOLDER, 'animal_pose', 'test_animal_pose.npy'),
   },
 ]
 
