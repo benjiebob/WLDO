@@ -110,7 +110,7 @@ class DemoDataset(Dataset):
         item["has_bbox"] = has_bbox
 
         # terms required for model.forward
-        item['keypoints'] = np.zeros((config.N_KEYPOINTS, 3))
+        item['keypoints'] = np.zeros((len(config.EVAL_KEYPOINTS), 3))
         item['seg'] = False
         item['index'] = index
         item['dataset'] = 'clip'

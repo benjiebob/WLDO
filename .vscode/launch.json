@@ -68,6 +68,14 @@
             ]
         },
         {
+            "name": "Python: Demo",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/wldo_regressor/demo.py",
+            "cwd": "${workspaceFolder}/wldo_regressor",
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Python: Clean_Model",
             "type": "python",
             "request": "launch",
