@@ -114,7 +114,6 @@ This repository owes a great deal to the following works and authors:
 - [SMALify](https://github.com/benjiebob/SMALify/); Biggs et al. provided an energy minimization framework for fitting to animal video/images. A version of this was used as a baseline in this paper.
 - [SMAL](http://smal.is.tue.mpg.de/); Zuffi et al. designed the SMAL deformable quadruped template model and have provided me with wonderful advice/guidance throughout my PhD journey.
 - [SMALST](https://github.com/silviazuffi/smalst); Zuffi et al. provided PyTorch implementations of the SMAL skinning functions which have been used here.
-- [SMPLify](http://smplify.is.tue.mpg.de/); Bogo et al. provided the basis for our original ChumPY implementation.
 
 ## Acknowledgements
 
