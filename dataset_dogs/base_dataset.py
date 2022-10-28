@@ -54,7 +54,7 @@ class BaseDataset(Dataset):
         
         BASE_FOLDER = config.DATASET_FOLDERS[dataset]
 
-        self.img_dir = os.path.join(BASE_FOLDER, 'images')
+        self.img_dir = os.path.join(BASE_FOLDER, 'Images')
         self.jsonfile   = os.path.join(BASE_FOLDER, config.JSON_NAME[dataset]) # accessing new version of keypoints.json
 
         # self.jsonfile = "/home/bjb10042/projects/data/dogs_v2/stanford/keypoints_v101.json"

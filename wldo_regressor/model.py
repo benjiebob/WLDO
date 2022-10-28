@@ -87,9 +87,10 @@ class Model(nn.Module):
         faces = self.smal.faces.unsqueeze(0).expand(
             verts.shape[0], 7774, 3)
        
-        synth_rgb, synth_silhouettes = self.model_renderer(
+        synth_render, synth_silhouettes = self.model_renderer(
             verts, faces, pred_camera)
 
+        synth_rgb = synth_render[0] # Get the RGB element of the tuple
         synth_rgb = torch.clamp(synth_rgb, 0.0, 1.0)
         synth_silhouettes = synth_silhouettes.unsqueeze(1)
 

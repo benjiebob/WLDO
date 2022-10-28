@@ -12,34 +12,8 @@
             "cwd": "${workspaceFolder}/wldo_regressor",
             "console": "integratedTerminal",
             "args": [
-                "--dataset", "stanford",
-            ]
-        },
-        {
-            "name": "Python: Evaluate STANFORD_EXTRA [Loaded]",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/wldo_regressor/eval.py",
-            "cwd": "${workspaceFolder}/wldo_regressor",
-            "console": "integratedTerminal",
-            "args": [
-                "--dataset", "stanford",
-                "--param_dir", 
-                "/home/bjb10042/projects/code/eccv2020_prod/data/results/3501_00034_stanford"
-            ]
-        },
-        {
-            "name": "Python: Evaluate STANFORD_EXTRA [SMAL]",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/wldo_regressor/eval.py",
-            "cwd": "${workspaceFolder}/wldo_regressor",
-            "console": "integratedTerminal",
-            "args": [
-                "--dataset", "stanford",
-                "--shape_family_id", "1",
-                "--param_dir", 
-                "../data/optimizer_results/stanfordextra"
+                "--dataset",
+                "stanford",
             ]
         },
         {
@@ -50,54 +24,9 @@
             "cwd": "${workspaceFolder}/wldo_regressor",
             "console": "integratedTerminal",
             "args": [
-                "--dataset", "animal_pose",
+                "--dataset",
+                "animal_pose",
             ]
-        },
-        {
-            "name": "Python: Evaluate ANIMAL_POSE [SMAL]",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/wldo_regressor/eval.py",
-            "cwd": "${workspaceFolder}/wldo_regressor",
-            "console": "integratedTerminal",
-            "args": [
-                "--dataset", "animal_pose",
-                "--shape_family_id", "1",
-                "--param_dir", 
-                "../data/optimizer_results/animal_pose"
-            ]
-        },
-        {
-            "name": "Python: Demo",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/wldo_regressor/demo.py",
-            "cwd": "${workspaceFolder}/wldo_regressor",
-            "console": "integratedTerminal",
-        },
-        {
-            "name": "Python: Clean_Model",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/data/clean_model.py",
-            "cwd": "${workspaceFolder}/data",
-            "console": "integratedTerminal",
-        },
-        {
-            "name": "Python: Compare_Splits",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/data/compare_splits.py",
-            "cwd": "${workspaceFolder}/",
-            "console": "integratedTerminal",
-        },
-        {
-            "name": "Python: Compare_Splits_AniPose",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/data/compare_animal_segs.py",
-            "cwd": "${workspaceFolder}/",
-            "console": "integratedTerminal",
-        },
+        }
     ]
 }

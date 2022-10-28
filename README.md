@@ -20,7 +20,7 @@ For segmentation decoding, install pycocotools
 
 ### Datasets
 
-To use the StanfordExtra dataset, you will need to download the .json file [via the repository](https://github.com/benjiebob/StanfordExtra). 
+Follow the instructions [on the repository](https://github.com/benjiebob/StanfordExtra) to download StanfordExtra annotations and images.
 
 **Please ensure you have StanfordExtra_v12 installed, which we released 1 Feb 2021.**
 
