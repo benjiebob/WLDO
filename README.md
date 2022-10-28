@@ -7,10 +7,6 @@ Evaluation and demo code for our ECCV 2020 paper: *Who Left the Dogs Out? 3D Ani
 
 ![](docs/banner.jpg)
 
-## Disclaimer
-
-Please note, this repository is in beta while I make bug fixes etc.
-
 ## Install
 
 Clone the repository **with submodules**:
