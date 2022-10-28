@@ -37,6 +37,16 @@ Please download our [pretrained model](https://drive.google.com/file/d/1khc-wttw
 
 # Quickstart
 
+## Demo
+
+To run the model on a series of images, place the images in a directory, and call the script demo.py.
+To see an example of this working, run demo.py and it will use the images in `example_imgs`:
+
+```
+cd wldo_regressor
+python demo.py
+```
+
 ## Eval
 
 To evaluate the performance of the model on the StanfordExtra dataset, run eval.py:
@@ -95,15 +105,6 @@ python eval.py --dataset animal_pose
 
 Note that we have recently updated the tables in the arxiv version of our paper to account for some fixed dataset annotations and to use an improved version of the PCK metric. More details can be found in the paper.
 
-## Demo
-
-To run the model on a series of images, place the images in a directory, and call the script demo.py.
-To see an example of this working, run demo.py and it will use the images in `example_imgs`:
-
-```
-cd wldo_regressor
-python demo.py
-```
 
 ## Related Work
 This repository owes a great deal to the following works and authors:
